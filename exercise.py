@@ -38,17 +38,14 @@
 # - Ensure to provide feedback for non-alphabetical or invalid entries.
 
 def check_letter():
-    letters = input('Enter letter from a-z or A-Z:').lower()
-    vowel = ["a", "e", "i", "o", "u"]
-    if letters in vowel :
-        print(f'The letter {letters} is a vowel.') 
-
-    elif letters not in vowel:
-       print(f'The letter {letters} is a consonant')
-
-
+    letter = input(
+        "Please enter a letter from the alphabet (a-z or A-Z): ").lower()
+    if letter in 'aeiou':
+        print(f"The letter {letter} is a vowel.")
+    elif letter.isalpha():
+        print(f"The letter {letter} is a consonant.")
     else:
-        print(f'{letters} is non-alphabetical or invalid entries')
+        print("Please enter a valid alphabetical character.")
 
 
 # Call the function
@@ -108,16 +105,18 @@ check_voting_eligibility()
 # - Apply conditional logic to perform the correct age calculation based on the dog's age.
 
 def calculate_dog_years():
-    dog_age = int(input("enter your dog age:"))
-    
-    if dog_age <= 2:
-      dog_age*= 10
-    
-    elif dog_age>2:
-      dog_age = (dog_age + 20) + 7
+    age = input("Input a dog's age: ")
+    age = int(age)
 
-    print(f"The dog's age in dog years is {dog_age}")
-    
+    if age < 0:
+        print("Please enter a positive number.")
+    elif age <= 2:
+        dog_years = age * 10
+    else:
+        dog_years = 20 + (age - 2) * 7
+    print(f"The dog's age in dog years is {dog_years}.")
+
+
     
 
 # Call the function
@@ -140,11 +139,21 @@ calculate_dog_years()
 # Hints:
 # - Use logical operators (`AND`, `OR`, `NOT`) in your if statements to handle multiple conditions.
 
-# def weather_advice():
-#     # Your control flow logic goes here
+def weather_advice():
+    cold = input("Is it cold? (yes/no): ").lower() == 'yes'
+    raining = input("Is it raining? (yes/no): ").lower() == 'yes'
 
-# # Call the function
-# weather_advice()
+    if cold and raining:
+        print("Wear a waterproof coat.")
+    elif cold and not raining:
+        print("Wear a warm coat.")
+    elif not cold and raining:
+        print("Carry an umbrella.")
+    else:
+        print("Wear light clothing.")
+
+# Call the function
+weather_advice()
 
 
 # Exercise 5: What's the Season?
@@ -166,8 +175,62 @@ calculate_dog_years()
 # - Adjust the season based on the day of the month when needed.
 # - Ensure to validate input formats and handle unexpected inputs gracefully.
 
-# def determine_season():
-#     # Your control flow logic goes here
 
-# # Call the function
-# determine_season()
+def determine_season():
+    month = input("Enter the month of the year (Jan - Dec): ")
+    day = input("Enter the day of the month: ")
+
+    day = int(day)
+    month = month.strip().lower()
+
+    if (month == 'dec' and day >= 21) or (month == 'jan') or (month == 'feb') or (month == 'mar' and day < 20):
+        season = 'Winter'
+    elif (month == 'mar' and day >= 20) or (month == 'apr') or (month == 'may') or (month == 'jun' and day < 21):
+        season = 'Spring'
+    elif (month == 'jun' and day >= 21) or (month == 'jul') or (month == 'aug') or (month == 'sep' and day < 22):
+        season = 'Summer'
+    elif (month == 'sep' and day >= 22) or (month == 'oct') or (month == 'nov') or (month == 'dec' and day < 21):
+        season = 'Fall'
+    else:
+        print("Please make sure your inputs are correct. Month should be (Jan-Dec) and day should be a valid day of the month.")
+        return
+
+    print(f"{month.capitalize()} {day} is in {season}.")
+
+
+ # Call the function
+determine_season()
+
+
+# LEVEL UP
+
+# Exercise 7: Number Guessing Game
+
+def guess_number():
+    target_number = 42
+    max_guesses = 5
+
+    print("Guess the number between 1 and 100. You have 5 attempts.")
+
+    for attempt in range(1, max_guesses + 1):
+        guess = input(f"Attempt {attempt}: Enter your guess: ")
+        guess = int(guess)
+        if guess < 1 or guess > 100:
+            print("Please guess a number within the range 1 to 100.")
+            continue
+        if guess < target_number:
+            print("Guess is too low.")
+        elif guess > target_number:
+            print("Guess is too high.")
+        else:
+            print("Congratulations, you guessed correctly!")
+            return
+
+        if attempt == max_guesses:
+            print("Last chance!")
+        elif attempt == max_guesses:
+            print("Sorry, you failed to guess the number in five attempts.")
+
+
+# Call the function
+guess_number()
